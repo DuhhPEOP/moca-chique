@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha Moça Chique 👑</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.box {
+    background: rgba(0,0,0,0.75);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(255,215,0,0.5);
+    max-width: 600px;
+    width: 90%;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: none;
+    background: gold;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ffd700;
+    transform: scale(1.05);
+}
+
+.nome {
+    font-size: 32px;
+    font-weight: bold;
+    color: gold;
+    text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 40px gold;
+    animation: brilho 2s infinite alternate;
+}
+
+@keyframes brilho {
+    from { text-shadow: 0 0 5px gold; }
+    to { text-shadow: 0 0 30px gold; }
+}
+
+.mensagem {
+    margin-top: 25px;
+    font-size: 18px;
+    min-height: 120px;
+    white-space: pre-line;
+}
+
+#contador {
+    margin-top: 10px;
+    color: gold;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="musica" src="moca.mp3" loop></audio>
+
+<div class="box" id="login">
+    <h2>🔐 Área Exclusiva da Minha Moça Chique</h2>
+    <p>Qual o dia que começamos nossa história? 💚</p>
+    <input type="text" id="senha" placeholder="DD/MM/AAAA">
+    <br>
+    <button onclick="entrar()">Entrar 👑</button>
+    <p id="erro" style="color:red;"></p>
+</div>
+
+<div class="box" id="conteudo" style="display:none;">
+    <div class="nome">Noemi Talita 👑</div>
+    <div id="contador"></div>
+
+    <!-- BOTÃO PARA ATIVAR MÚSICA -->
+    <button onclick="tocarMusica()">Ativar nossa música 🎵</button>
+
+    <div class="mensagem" id="mensagem"></div>
+</div>
+
+<script>
+
+function entrar() {
+    const senha = document.getElementById("senha").value;
+
+    if (senha === "17/05/2023") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("conteudo").style.display = "block";
+        iniciarMensagem();
+    } else {
+        document.getElementById("erro").innerText = "Hmm... tenta de novo, minha Brabesa 😌";
+    }
+}
+
+function tocarMusica() {
+    const audio = document.getElementById("musica");
+    audio.play();
+}
+
+// Contador
+function atualizarContador() {
+    const dataInicio = new Date("2023-05-17T00:00:00");
+    const agora = new Date();
+    const diff = agora - dataInicio;
+
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutos = Math.floor((diff / (1000 * 60)) % 60);
+    const segundos = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("contador").innerHTML =
+        `Juntos há 👑 ${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
+}
+
+setInterval(atualizarContador, 1000);
+
+// Texto digitando
+const texto = `
+Minha Brabesa...
+
+Você é força.
+É elegância.
+É presença.
+
+Desde 17/05/2023
+minha vida ganhou cor,
+sentido e direção.
+
+Minha Pena Verde,
+minha Moça Chique,
+minha escolha todos os dias.
+
+Eu te amo mais do que ontem
+e menos do que amanhã. 💚👑
+`;
+
+let i = 0;
+
+function iniciarMensagem() {
+    const el = document.getElementById("mensagem");
+    el.innerHTML = "";
+    i = 0;
+    digitar();
+}
+
+function digitar() {
+    if (i < texto.length) {
+        document.getElementById("mensagem").innerHTML += texto.charAt(i);
+        i++;
+        setTimeout(digitar, 40);
+    }
+}
+
+</script>
+
+</body>
+</html>
